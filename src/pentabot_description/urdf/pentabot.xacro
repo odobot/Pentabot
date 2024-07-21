@@ -1,0 +1,476 @@
+<?xml version="1.0" ?>
+<robot name="pentabot"
+  xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="is_sim" default="true"/>
+
+  <xacro:include filename="$(find pentabot_description)/urdf/materials.xacro" />
+  <xacro:include filename="$(find pentabot_description)/urdf/pentabot.trans" />
+  <xacro:include filename="$(find pentabot_description)/urdf/pentabot_gazebo.xacro" />
+  <xacro:include filename="$(find pentabot_description)/urdf/pentabot_ros2_control.xacro" />
+
+  <xacro:property name="PI" value="3.14159"/>
+  <xacro:property name="effort" value="30"/>
+  <xacro:property name="velocity" value="10.0"/>
+
+  <xacro:macro name="default_inertial" params="mass">
+    <inertial>
+      <mass value="${mass}"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </xacro:macro>
+
+  <link name = "world"/>
+
+  <joint name="base_link_q=world_joint" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+
+  <link name="base_link">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Servo_Bracket_-_U_Shaped_Defaut_v4_1">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.008257 0.025556 -0.025987" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_U_Shaped_Defaut_v4_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.008257 0.025556 -0.025987" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_U_Shaped_Defaut_v4_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Standard_Servo__1501MG__v3_1">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.042757 0.030556 -0.058487" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Standard_Servo__1501MG__v3_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.042757 0.030556 -0.058487" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Standard_Servo__1501MG__v3_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Servo_Bracket_-_U_Shaped_Defaut_v4_2">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.027957 0.025381 -0.075787" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_U_Shaped_Defaut_v4_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.027957 0.025381 -0.075787" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_U_Shaped_Defaut_v4_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Standard_Servo__1501MG__v3_2">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.034457 0.000381 -0.095287" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Standard_Servo__1501MG__v3_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.034457 0.000381 -0.095287" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Standard_Servo__1501MG__v3_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Servo_Bracket_-_U_Shaped_bis_Defaut_v3_1">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.051557 0.015181 -0.090112" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_U_Shaped_bis_Defaut_v3_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.051557 0.015181 -0.090112" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_U_Shaped_bis_Defaut_v3_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="U_Bracket_Defaut_v3_1">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.025557 0.015181 -0.143112" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/U_Bracket_Defaut_v3_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.025557 0.015181 -0.143112" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/U_Bracket_Defaut_v3_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Servo_Bracket_-_Corner_Mount_Defaut_v2_1">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.017757 0.000506 -0.193812" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_Corner_Mount_Defaut_v2_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.017757 0.000506 -0.193812" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_Corner_Mount_Defaut_v2_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="U_Bracket_Defaut_v3_2">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.017757 0.014506 -0.215312" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/U_Bracket_Defaut_v3_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.017757 0.014506 -0.215312" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/U_Bracket_Defaut_v3_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Standard_Servo__1501MG__v3_4">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="0.008243 0.014506 -0.245312" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Standard_Servo__1501MG__v3_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="0.008243 0.014506 -0.245312" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Standard_Servo__1501MG__v3_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Servo_Bracket_-_Corner_Mount_Defaut_v2_2">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.025357 -0.000169 -0.266012" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_Corner_Mount_Defaut_v2_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.025357 -0.000169 -0.266012" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_Corner_Mount_Defaut_v2_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Servo_Bracket_-_U_Shaped_Defaut_v4_5">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.025357 0.013831 -0.287512" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_U_Shaped_Defaut_v4_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.025357 0.013831 -0.287512" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_U_Shaped_Defaut_v4_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Standard_Servo__1501MG__v3_5">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.009857 0.008831 -0.320012" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Standard_Servo__1501MG__v3_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.009857 0.008831 -0.320012" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Standard_Servo__1501MG__v3_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Servo_Bracket_-_U_Shaped_Defaut_v4_3">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.034257 0.010006 -0.158312" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_U_Shaped_Defaut_v4_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.034257 0.010006 -0.158312" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_U_Shaped_Defaut_v4_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Servo_Bracket_-_U_Shaped_Defaut_v4_4">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.008857 0.009331 -0.230512" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_U_Shaped_Defaut_v4_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.008857 0.009331 -0.230512" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Servo_Bracket_-_U_Shaped_Defaut_v4_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Gripz_v3_1">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.024657 0.014006 -0.337312" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Gripz_v3_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.024657 0.014006 -0.337312" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Gripz_v3_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="left-gripper_v4_1">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.036357 -0.019994 -0.352787" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/left-gripper_v4_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.036357 -0.019994 -0.352787" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/left-gripper_v4_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="right-gripper_v3_1">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.012907 -0.019994 -0.352812" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/right-gripper_v3_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.012907 -0.019994 -0.352812" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/right-gripper_v3_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="Standard_Servo__1501MG__v3_3">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <origin xyz="-0.051557 0.015181 -0.173112" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Standard_Servo__1501MG__v3_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="steel_satin"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.051557 0.015181 -0.173112" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://pentabot_description/meshes/Standard_Servo__1501MG__v3_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="Rigid 1" type="fixed">
+    <origin xyz="0.008257 -0.025556 0.025987" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="Servo_Bracket_-_U_Shaped_Defaut_v4_1"/>
+  </joint>
+
+  <joint name="Rigid 2" type="fixed">
+    <origin xyz="0.0345 -0.005 0.0325" rpy="0 0 0"/>
+    <parent link="Servo_Bracket_-_U_Shaped_Defaut_v4_1"/>
+    <child link="Standard_Servo__1501MG__v3_1"/>
+  </joint>
+
+  <joint name="Revolute 3" type="revolute">
+    <origin xyz="-0.0148 0.005175 0.0173" rpy="0 0 0"/>
+    <parent link="Standard_Servo__1501MG__v3_1"/>
+    <child link="Servo_Bracket_-_U_Shaped_Defaut_v4_2"/>
+    <axis xyz="0.0 0.0 1.0"/>
+    <limit lower="-${PI/2}" upper="${PI/2}" velocity="${velocity}" effort="${effort}"/>
+  </joint>
+
+  <joint name="Rigid 4" type="fixed">
+    <origin xyz="0.0065 0.025 0.0195" rpy="0 0 0"/>
+    <parent link="Servo_Bracket_-_U_Shaped_Defaut_v4_2"/>
+    <child link="Standard_Servo__1501MG__v3_2"/>
+  </joint>
+
+  <joint name="Revolute 5" type="revolute">
+    <origin xyz="0.0171 -0.0148 -0.005175" rpy="0 0 0"/>
+    <parent link="Standard_Servo__1501MG__v3_2"/>
+    <child link="Servo_Bracket_-_U_Shaped_bis_Defaut_v3_1"/>
+    <axis xyz="-1.0 0.0 0.0"/>
+    <limit lower="-${PI/2}" upper="${PI/2}" velocity="${velocity}" effort="${effort}"/>
+  </joint>
+
+  <joint name="Rigid 6" type="fixed">
+    <origin xyz="-0.026 0.0 0.053" rpy="0 0 0"/>
+    <parent link="Servo_Bracket_-_U_Shaped_bis_Defaut_v3_1"/>
+    <child link="U_Bracket_Defaut_v3_1"/>
+  </joint>
+
+  <joint name="Revolute 7" type="continuous">
+    <origin xyz="0.026 0.0 0.03" rpy="0 0 0"/>
+    <parent link="U_Bracket_Defaut_v3_1"/>
+    <child link="Standard_Servo__1501MG__v3_3"/>
+    <limit lower="-${PI/2}" upper="${PI/2}" velocity="${velocity}" effort="${effort}"/>
+    <axis xyz="-1.0 0.0 0.0"/>
+  </joint>
+
+  <joint name="Rigid 9" type="fixed">
+    <origin xyz="-0.0165 0.0095 0.0355" rpy="0 0 0"/>
+    <parent link="Servo_Bracket_-_U_Shaped_Defaut_v4_3"/>
+    <child link="Servo_Bracket_-_Corner_Mount_Defaut_v2_1"/>
+  </joint>
+
+  <joint name="Rigid 10" type="fixed">
+    <origin xyz="0.0 -0.014 0.0215" rpy="0 0 0"/>
+    <parent link="Servo_Bracket_-_Corner_Mount_Defaut_v2_1"/>
+    <child link="U_Bracket_Defaut_v3_2"/>
+  </joint>
+
+  <joint name="Revolute 11" type="revolute">
+    <origin xyz="-0.026 0.0 0.03" rpy="0 0 0"/>
+    <parent link="U_Bracket_Defaut_v3_2"/>
+    <child link="Standard_Servo__1501MG__v3_4"/>
+    <axis xyz="1.0 0.0 0.0"/>
+    <limit lower="-${PI/2}" upper="${PI/2}" velocity="${velocity}" effort="${effort}"/>
+  </joint>
+
+  <joint name="Rigid 13" type="fixed">
+    <origin xyz="0.0165 0.0095 0.0355" rpy="0 0 0"/>
+    <parent link="Servo_Bracket_-_U_Shaped_Defaut_v4_4"/>
+    <child link="Servo_Bracket_-_Corner_Mount_Defaut_v2_2"/>
+  </joint>
+
+  <joint name="Rigid 14" type="fixed">
+    <origin xyz="0.0 -0.014 0.0215" rpy="0 0 0"/>
+    <parent link="Servo_Bracket_-_Corner_Mount_Defaut_v2_2"/>
+    <child link="Servo_Bracket_-_U_Shaped_Defaut_v4_5"/>
+  </joint>
+
+  <joint name="Rigid 15" type="fixed">
+    <origin xyz="-0.0155 0.005 0.0325" rpy="0 0 0"/>
+    <parent link="Servo_Bracket_-_U_Shaped_Defaut_v4_5"/>
+    <child link="Standard_Servo__1501MG__v3_5"/>
+  </joint>
+
+  <joint name="Rigid 16" type="fixed">
+    <origin xyz="-0.0173 0.005175 -0.0148" rpy="0 0 0"/>
+    <parent link="Standard_Servo__1501MG__v3_3"/>
+    <child link="Servo_Bracket_-_U_Shaped_Defaut_v4_3"/>
+  </joint>
+
+  <joint name="Rigid 17" type="fixed">
+    <origin xyz="0.0171 0.005175 -0.0148" rpy="0 0 0"/>
+    <parent link="Standard_Servo__1501MG__v3_4"/>
+    <child link="Servo_Bracket_-_U_Shaped_Defaut_v4_4"/>
+  </joint>
+
+  <joint name="Revolute 19" type="revolute">
+    <origin xyz="0.0148 -0.005175 0.0173" rpy="0 0 0"/>
+    <parent link="Standard_Servo__1501MG__v3_5"/>
+    <child link="Gripz_v3_1"/>
+    <axis xyz="-0.0 0.0 1.0"/>
+    <limit lower="-${PI/2}" upper="${PI/2}" velocity="${velocity}" effort="${effort}"/>
+  </joint>
+
+  <joint name="Revolute 21" type="continuous">
+    <origin xyz="0.0117 0.034 0.015475" rpy="0 0 0"/>
+    <parent link="Gripz_v3_1"/>
+    <child link="left-gripper_v4_1"/>
+    <limit lower="-${PI/2}" upper="0.0" velocity="${velocity}" effort="${effort}"/>
+    <axis xyz="-0.0 1.0 -0.0"/>
+  </joint>
+
+  <joint name="Revolute 22" type="continuous">
+    <origin xyz="-0.01175 0.034 0.0155" rpy="0 0 0"/>
+    <parent link="Gripz_v3_1"/>
+    <child link="right-gripper_v3_1"/>
+    <limit lower="0.0" upper="${PI/2}" velocity="${velocity}" effort="${effort}"/>
+    <mimic joint="Revolute 21" multiplier="-1"/>
+    <axis xyz="-0.0 1.0 -0.0"/>
+  </joint>
+
+</robot>

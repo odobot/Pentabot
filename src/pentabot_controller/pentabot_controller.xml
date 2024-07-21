@@ -1,0 +1,9 @@
+<library path="pentabot_controller">
+    <class name="pentabot_controller/PentabotInterface"
+      type="pentabot_controller::PentabotInterface"
+      base_class_type="hardware_interface::SystemInterface">
+      <description>
+        Pentabot Hardware Interface
+      </description>
+    </class>
+</library>
